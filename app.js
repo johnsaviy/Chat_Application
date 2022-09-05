@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser')
 
 //Internal Imports
 const {notFoundHandler, errorHandler} = require('./middlewares/common/errorHandler')
+const loginRouter = require('./router/loginRouter')
 
 
 const app = express()
@@ -30,16 +31,23 @@ app.set("view engine", "ejs")
 //set static folder
 app.use(express.static(path.join(__dirname, "public")))
 
+
 //parse cookies
 app.use(cookieParser(process.env.COOKIE_SECRET))
 
+
 //routing setup
+app.use("/", loginRouter)
+// app.use("/users", usersRouter)
+// app.use("inbox", inboxRouter)
+
+
 
 //error handling(404 not found handler)
-app.use(notFoundHandler)
+// app.use(notFoundHandler)
 
 // default error handler 
-app.use(errorHandler)
+// app.use(errorHandler)
 
 
 
